@@ -19,12 +19,12 @@ if(!empty($_POST["submitButton"])){
     //echo $_POST["username"];
     //echo $_POST["comment"];
 
-    //名前を入力してください
+    //バリデーション名前
     if(empty($_POST["username"])){
         echo "名前を入力してください";
         $error_messages["username"] = "名前を入力してください";
     }
-    //コメントを入力してください
+    //バリデーションコメント
     if(empty($_POST["comment"])){
         echo "コメントを入力してください";
         $error_messages["comment"] = "コメントを入力してください";
@@ -33,6 +33,7 @@ if(!empty($_POST["submitButton"])){
     if(empty($error_messages)){
         $postDate = date("Y-m-d H:i:s");
 
+        //データ挿入
         try{
             $stmt = $pdo->prepare("INSERT INTO `bbs-table` (`username`, `comment`, `postDate`) VALUES (:username, :comment, :postDate)");
             $stmt->bindParam(':username', $_POST['username'], PDO::PARAM_STR);
@@ -56,7 +57,6 @@ $comment_array = $pdo->query($sql);
 
 //DBの接続を閉じる
 $pdo = null;
-
 
 ?>
 
